@@ -1,42 +1,61 @@
 ﻿@model DogGo.Models.ViewModels.WalkerProfileViewModel
 
 @{
-    ViewData["Title"] = "Details";
+	ViewData["Title"] = "Details";
 }
 
 <h1>Details</h1>
 
 <div>
-    <h4>Walker</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Walker.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Walker.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Walker.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Walker.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            <img class="bg-info" src="@Model.Walker.ImageUrl" alt="avatar" />
-        </dt>
-        <dd class = "col-sm-10">
-            <img class="bg-info" src="@Model.Walker.ImageUrl" alt="avatar" />
-        </dd>
-        @foreach (var w in @Model.Walk)
-        {
-            <div>
-                Date: @w.Date
-            </div>
-        }
-    </dl>
+	<h4>Walker</h4>
+	<hr />
+	<dl class="row">
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Walker.Id)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Walker.Id)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Walker.Name)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Walker.Name)
+		</dd>
+		<dt class="col-sm-2">
+			<img class="bg-info" src="@Model.Walker.ImageUrl" alt="avatar" />
+		</dt>
+	</dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new {  id = Model.Walker.Id  }) |
-    <a asp-action="Index">Back to List</a>
+	<h3>Recent Walks</h3>
+	<dl class="column">
+		@foreach (var w in @Model.Walk)
+		{
+			<dt class="form-row">
+				Date
+			</dt>
+			<dd class="col-sm-3">
+				@w.Date
+			</dd>
+
+			<dt class="form-row">
+				Client
+			</dt>
+			<dd class="col-sm-3">
+				@w.OwnerName
+			</dd>
+
+			<dt class="form-row">
+				Duration
+			</dt>
+			<dd class="col-sm-3">
+				@(w.Duration / 60) min
+			</dd>
+		}
+	</dl>
+</div>
+<div>
+	@Html.ActionLink("Edit", "Edit", new {  id = Model.Walker.Id  }) |
+	<a asp-action="Index">Back to List</a>
 </div>

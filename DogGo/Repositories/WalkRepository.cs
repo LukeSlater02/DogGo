@@ -33,9 +33,10 @@ namespace DogGo.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        SELECT Id, Date, Duration, WalkerId, DogId
-                        FROM Walks
-                        WHERE WalkerId = @id";
+                                SELECT Walks.Id, Date, Duration, WalkerId, DogId, Owner.Name OwnerName FROM Walks
+                                JOIN Dog on Dog.Id = DogId
+                                JOIN Owner on Dog.OwnerId = Owner.Id
+                                WHERE Walks.Id = @id";
 
                     cmd.Parameters.AddWithValue("@id", walkerId);
 
@@ -50,7 +51,8 @@ namespace DogGo.Repositories
                                 Date = reader.GetDateTime(reader.GetOrdinal("Date")).ToShortDateString(),
                                 Duration = reader.GetInt32(reader.GetOrdinal("Duration")),
                                 WalkerId = reader.GetInt32(reader.GetOrdinal("WalkerId")),
-                                DogId = reader.GetInt32(reader.GetOrdinal("DogId"))
+                                DogId = reader.GetInt32(reader.GetOrdinal("DogId")),
+                                OwnerName = reader.GetString(reader.GetOrdinal("OwnerName"))
                             };
 
                             walks.Add(walk);
