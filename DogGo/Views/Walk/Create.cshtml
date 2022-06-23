@@ -1,0 +1,60 @@
+﻿@model DogGo.Models.ViewModels.CreateWalkViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Walk</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.Walk.Date" class="control-label"></label>
+                <input asp-for="@Model.Walk.Date" class="form-control" />
+                <span asp-validation-for="@Model.Walk.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Walk.Duration" class="control-label"></label>
+                <input asp-for="@Model.Walk.Duration" class="form-control" />
+                <span asp-validation-for="@Model.Walk.Duration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Walk.WalkerId" class="control-label"></label>
+                <select asp-for="@Model.Walk.WalkerId" class="form-control">
+                    <option value="">Choose a Walker</option>
+                    @foreach (var w in @Model.WalkerList)
+                    {
+                        <option value="@w.Id">@w.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="@Model.Walk.WalkerId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.Walk.DogId" class="control-label"></label>
+                <select asp-for="@Model.Walk.DogId" class="form-control">
+                    <option value="">Choose a Dog</option>
+                    @foreach (var d in @Model.DogList)
+                    {
+                        <option value="@d.Id">@d.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="@Model.Walk.DogId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
