@@ -81,7 +81,8 @@ namespace DogGo.Controllers
         // GET: WalkersController/Create
         public ActionResult Create()
         {
-            return View();
+            Walker walker = new();
+            return View(walker);
         }
 
         // POST: WalkersController/Create
